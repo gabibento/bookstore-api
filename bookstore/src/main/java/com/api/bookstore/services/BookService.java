@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookService {
     @Autowired
@@ -14,5 +16,8 @@ public class BookService {
     public ResponseEntity<Book> createBook(Book book){
         bookRepository.save(book);
         return ResponseEntity.ok(book);
+    }
+    public List<Book> findAll(){
+        return bookRepository.findAll();
     }
 }
