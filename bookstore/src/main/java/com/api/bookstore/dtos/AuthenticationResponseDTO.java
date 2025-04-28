@@ -1,9 +1,9 @@
 package com.api.bookstore.dtos;
 
-public class AuthenticationResponse {
+public class AuthenticationResponseDTO {
     private String token;
 
-    public AuthenticationResponse(String token) {
+    public AuthenticationResponseDTO(String token) {
         this.token = token;
     }
     public String getToken() {

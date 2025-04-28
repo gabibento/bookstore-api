@@ -1,6 +1,6 @@
 package com.api.bookstore.dtos;
 
-public class AuthenticationRequest {
+public class AuthenticationRequestDTO {
     private String username;
     private String password;
 
