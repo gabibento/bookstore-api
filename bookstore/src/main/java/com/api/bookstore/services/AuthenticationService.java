@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,13 +23,15 @@ public class AuthenticationService {
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
     }
-    public AuthenticationResponseDTO authenticate(AuthenticationRequestDTO authenticationRequestDTO){
+    public AuthenticationResponseDTO authenticate(AuthenticationRequestDTO request){
         try{
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authenticationRequestDTO.getUsername(),
-                            authenticationRequestDTO.getPassword())
+                    new UsernamePasswordAuthenticationToken(request.getUsername(),
+                            request.getPassword())
             );
-            User user = (User) authentication.getPrincipal();
+            User user = userRepository.findByUsername(request.getUsername())
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+
             String token = jwtService.generateToken(user);
 
             return new AuthenticationResponseDTO(token);
