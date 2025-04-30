@@ -1,14 +1,17 @@
 package com.api.bookstore.services;
-import com.auth0.jwt.JWT;
+
+import com.api.bookstore.entities.Role;
 import com.api.bookstore.entities.User;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.security.Key;
+import java.util.Date;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -16,20 +19,34 @@ public class JwtService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String generateToken(User user){
-        try{
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+    private Key key;
 
-            return JWT.create()
-                    .withIssuer("bookstore")
-                    .withSubject(user.getUsername())
-                    .withExpiresAt(getExpirationDate())
-                    .sign(algorithm);
-        }catch (JWTCreationException exception){
-            throw new RuntimeException("Error while generating token: " + exception);
-        }
+    @PostConstruct
+    public void init() {
+        this.key = Keys.hmacShaKeyFor(secret.getBytes());
     }
-    private Instant getExpirationDate(){
-        return LocalDateTime.now().plusDays(30).toInstant(ZoneOffset.of("-03:00"));
+
+    public String generateToken(User user) {
+        long expirationMillis = 1000 * 60 * 60 * 24 * 7;
+
+        return Jwts.builder()
+                .setSubject(user.getUsername())
+                .setIssuer("bookstore")
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expirationMillis))
+                .claim("roles", user.getRoles().stream()
+                        .map(Role::getAuthority)
+                        .collect(Collectors.toList()))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public String getUsernameFromToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 }
