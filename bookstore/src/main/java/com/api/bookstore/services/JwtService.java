@@ -34,9 +34,7 @@ public class JwtService {
                 .setIssuer("bookstore")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationMillis))
-                .claim("roles", user.getRoles().stream()
-                        .map(Role::getAuthority)
-                        .collect(Collectors.toList()))
+                .claim("roles", user.getRole())
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
