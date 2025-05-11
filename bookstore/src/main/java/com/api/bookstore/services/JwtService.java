@@ -1,6 +1,5 @@
 package com.api.bookstore.services;
 
-import com.api.bookstore.entities.Role;
 import com.api.bookstore.entities.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 @Service
 public class JwtService {

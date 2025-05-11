@@ -37,6 +37,18 @@ public class Book {
         this.stockQuantity = stockQuantity;
         this.category = category;
     }
+    public Book(String title, String author, String publisher, String description, String isbn, Integer pages, Integer year, BigDecimal price, Integer stockQuantity, String category) {
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.description = description;
+        this.isbn = isbn;
+        this.pages = pages;
+        this.year = year;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.category = category;
+    }
 
     public Long getId() {
         return id;

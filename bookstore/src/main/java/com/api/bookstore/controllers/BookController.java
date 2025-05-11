@@ -15,8 +15,8 @@ public class BookController {
     BookService bookService;
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody Book book){
-        return bookService.createBook(book);
+    public ResponseEntity<Book> createBook(@RequestParam String query){
+        return bookService.createBook(query);
     }
     @GetMapping
     public List<Book> findAll(){
