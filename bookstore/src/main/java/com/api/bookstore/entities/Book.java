@@ -10,10 +10,14 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 255)
     private String title;
+    @Column(length = 255)
     private String author;
-    private String publisher;
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String description;
+    private String publisher;
     private String isbn;
     private Integer pages;
     private Integer year;
