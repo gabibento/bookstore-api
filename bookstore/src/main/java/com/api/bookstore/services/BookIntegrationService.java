@@ -39,12 +39,12 @@ public class BookIntegrationService {
                 .findFirst()
                 .orElse(null);
     }
-    public Optional<Book> getBook(String query){
+    public Optional<Book> getBook(String title, String author){
+        String query = "intitle:" + title + "+inauthor:" + author;
         VolumeInfo info = fetchBookInfo(query);
 
-        if (info == null ) {
-            return Optional.empty();
-        }
+        if (info == null ) return Optional.empty();
+
         Book book = new Book();
         book.setTitle(info.getTitle());
         book.setAuthor(info.getAuthors() != null ? String.join(", ", info.getAuthors()) : "Unknown author");

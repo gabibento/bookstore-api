@@ -20,14 +20,14 @@ public class BookService {
         this.bookIntegrationService = bookIntegrationService;
     }
 
-    public ResponseEntity<Book> createBook(String query) {
-        Book book = fetchBook(query);
-        if(fetchBook(query) == null) return ResponseEntity.notFound().build();
+    public ResponseEntity<Book> createBook(String title, String author) {
+        Book book = fetchBook(title, author);
+        if(book == null) return ResponseEntity.notFound().build();
         bookRepository.save(book);
         return ResponseEntity.ok(book);
     }
-    public Book fetchBook(String query){
-        return bookIntegrationService.getBook(query).orElse(null);
+    public Book fetchBook(String title, String author){
+        return bookIntegrationService.getBook(title, author).orElse(null);
     }
 
     public List<Book> findAll() {
