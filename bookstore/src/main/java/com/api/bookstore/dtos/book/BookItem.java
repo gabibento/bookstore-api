@@ -1,4 +1,4 @@
-package com.api.bookstore.dtos;
+package com.api.bookstore.dtos.book;
 
 public class BookItem {
     private VolumeInfo volumeInfo;

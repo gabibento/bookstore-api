@@ -1,5 +1,6 @@
 package com.api.bookstore.services;
 
+import com.api.bookstore.dtos.book.BookCreationDTO;
 import com.api.bookstore.entities.Book;
 import com.api.bookstore.repositories.BookRepository;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,12 @@ public class BookService {
         this.bookIntegrationService = bookIntegrationService;
     }
 
-    public ResponseEntity<Book> createBook(String title, String author) {
+    public ResponseEntity<Book> createBook(String title, String author, BookCreationDTO bookCreationDTO) {
         Book book = fetchBook(title, author);
         if(book == null) return ResponseEntity.notFound().build();
+
+        book.setPrice(bookCreationDTO.getPrice());
+        book.setStockQuantity(bookCreationDTO.getStockQuantity());
         bookRepository.save(book);
         return ResponseEntity.ok(book);
     }

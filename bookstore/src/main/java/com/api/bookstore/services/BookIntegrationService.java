@@ -1,14 +1,12 @@
 package com.api.bookstore.services;
 
-import com.api.bookstore.dtos.BookInfoResponse;
-import com.api.bookstore.dtos.IndustryIdentifier;
-import com.api.bookstore.dtos.VolumeInfo;
+import com.api.bookstore.dtos.book.BookInfoResponse;
+import com.api.bookstore.dtos.book.IndustryIdentifier;
+import com.api.bookstore.dtos.book.VolumeInfo;
 import com.api.bookstore.entities.Book;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 

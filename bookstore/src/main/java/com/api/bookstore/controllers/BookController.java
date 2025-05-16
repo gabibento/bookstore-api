@@ -1,5 +1,6 @@
 package com.api.bookstore.controllers;
 
+import com.api.bookstore.dtos.book.BookCreationDTO;
 import com.api.bookstore.entities.Book;
 import com.api.bookstore.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ public class BookController {
     BookService bookService;
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestParam String title, @RequestParam String author){
-        return bookService.createBook(title, author);
+    public ResponseEntity<Book> createBook(@RequestParam String title, @RequestParam String author, @RequestBody BookCreationDTO bookCreationDTO){
+        return bookService.createBook(title, author, bookCreationDTO);
     }
     @GetMapping
     public List<Book> findAll(){

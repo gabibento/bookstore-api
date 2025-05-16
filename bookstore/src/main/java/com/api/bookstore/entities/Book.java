@@ -20,7 +20,6 @@ public class Book {
     private String publisher;
     private String isbn;
     private Integer pages;
-    private Integer year;
     private BigDecimal price;
     private Integer stockQuantity;
     private String category;
@@ -28,7 +27,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(Long id, String title, String author, String publisher, String description, String isbn, Integer pages, Integer year, BigDecimal price, Integer stockQuantity, String category) {
+    public Book(Long id, String title, String author, String publisher, String description, String isbn, Integer pages, BigDecimal price, Integer stockQuantity, String category) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -36,19 +35,17 @@ public class Book {
         this.description = description;
         this.isbn = isbn;
         this.pages = pages;
-        this.year = year;
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.category = category;
     }
-    public Book(String title, String author, String publisher, String description, String isbn, Integer pages, Integer year, BigDecimal price, Integer stockQuantity, String category) {
+    public Book(String title, String author, String publisher, String description, String isbn, Integer pages, BigDecimal price, Integer stockQuantity, String category) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.description = description;
         this.isbn = isbn;
         this.pages = pages;
-        this.year = year;
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.category = category;
@@ -108,14 +105,6 @@ public class Book {
 
     public void setPages(Integer pages) {
         this.pages = pages;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
     }
 
     public BigDecimal getPrice() {

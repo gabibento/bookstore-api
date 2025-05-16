@@ -1,4 +1,4 @@
-package com.api.bookstore.dtos;
+package com.api.bookstore.dtos.book;
 
 import java.util.List;
 
