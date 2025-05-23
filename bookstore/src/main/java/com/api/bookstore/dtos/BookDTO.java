@@ -1,44 +1,44 @@
-package com.api.bookstore.entities;
+package com.api.bookstore.dtos;
 
-import jakarta.persistence.*;
+import com.api.bookstore.entities.Book;
 
-
-@Entity
-@Table(name = "tb_book")
-public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BookDTO {
     private Long id;
-    @Column(length = 255)
     private String title;
-    @Column(length = 255)
     private String author;
-    @Lob
-    @Column(columnDefinition = "TEXT")
     private String description;
     private String publisher;
     private String isbn;
     private Integer pages;
     private String category;
 
-    public Book() {
+    public BookDTO(Book book) {
+        id = book.getId();
+        title = book.getTitle();
+        author = book.getAuthor();
+        description = book.getDescription();
+        publisher = book.getPublisher();
+        isbn = book.getIsbn();
+        pages = book.getPages();
+        category = book.getCategory();
     }
 
-    public Book(Long id, String title, String author, String publisher, String description, String isbn, Integer pages, String category) {
+    public BookDTO(Long id, String title, String author, String description, String publisher, String isbn, Integer pages, String category) {
         this.id = id;
         this.title = title;
         this.author = author;
-        this.publisher = publisher;
         this.description = description;
+        this.publisher = publisher;
         this.isbn = isbn;
         this.pages = pages;
         this.category = category;
     }
-    public Book(String title, String author, String publisher, String description, String isbn, Integer pages, String category) {
+
+    public BookDTO(String title, String author, String description, String publisher, String isbn, Integer pages, String category) {
         this.title = title;
         this.author = author;
-        this.publisher = publisher;
         this.description = description;
+        this.publisher = publisher;
         this.isbn = isbn;
         this.pages = pages;
         this.category = category;
@@ -68,20 +68,20 @@ public class Book {
         this.author = author;
     }
 
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public String getIsbn() {

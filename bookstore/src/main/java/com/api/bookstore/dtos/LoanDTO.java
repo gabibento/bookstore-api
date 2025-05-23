@@ -1,37 +1,41 @@
-package com.api.bookstore.entities;
+package com.api.bookstore.dtos;
 
-import jakarta.persistence.*;
+import com.api.bookstore.entities.Loan;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "tb_loan")
-public class Loan {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class LoanDTO {
     private Long id;
-    @ManyToOne
-    private Book book;
-    @ManyToOne
-    private User user;
+    private Long bookId;
+    private Long userId;
     private LocalDate loanDate;
     private LocalDate dueDate;
     private LocalDate returnDate;
     private boolean isReturned;
 
-    public Loan(Long id, Book book, User user, LocalDate loanDate, LocalDate dueDate, LocalDate returnDate, boolean isReturned) {
+    public LoanDTO(Loan loan){
+     id = loan.getId();
+     bookId = loan.getBook().getId();
+     userId = loan.getUser().getId();
+     loanDate = loan.getLoanDate();
+     dueDate = loan.getDueDate();
+     returnDate = loan.getReturnDate();
+     isReturned = loan.isReturned();
+    }
+
+    public LoanDTO(Long id, Long bookId, Long userId, LocalDate loanDate, LocalDate dueDate, LocalDate returnDate, boolean isReturned) {
         this.id = id;
-        this.book = book;
-        this.user = user;
+        this.bookId = bookId;
+        this.userId = userId;
         this.loanDate = loanDate;
         this.dueDate = dueDate;
         this.returnDate = returnDate;
         this.isReturned = isReturned;
     }
 
-    public Loan(Book book, User user, LocalDate loanDate, LocalDate dueDate, boolean isReturned) {
-        this.book = book;
-        this.user = user;
+    public LoanDTO(Long bookId, Long userId, LocalDate loanDate, LocalDate dueDate, boolean isReturned) {
+        this.bookId = bookId;
+        this.userId = userId;
         this.loanDate = loanDate;
         this.dueDate = dueDate;
         this.isReturned = isReturned;
@@ -45,20 +49,20 @@ public class Loan {
         this.id = id;
     }
 
-    public Book getBook() {
-        return book;
+    public Long getBookId() {
+        return bookId;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public LocalDate getLoanDate() {
