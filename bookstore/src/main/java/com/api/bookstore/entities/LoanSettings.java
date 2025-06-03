@@ -13,10 +13,13 @@ public class LoanSettings {
     private Integer loanDurationDays;
     private Integer maxBooksPerUser;
 
-    public LoanSettings(Integer loanDurationDays, Integer maxBooksPerUser) {
-        this.id = 1L;
+    public LoanSettings(Long id, Integer loanDurationDays, Integer maxBooksPerUser) {
+        this.id = id;
         this.loanDurationDays = loanDurationDays;
         this.maxBooksPerUser = maxBooksPerUser;
+    }
+    public LoanSettings(){
+
     }
 
     public Long getId() {
