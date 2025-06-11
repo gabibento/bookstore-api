@@ -18,15 +18,15 @@ public class BookService {
         this.bookIntegrationService = bookIntegrationService;
     }
 
-    public ResponseEntity<Book> createBook(String title, String author) {
-        Book book = fetchBook(title, author);
+    public ResponseEntity<Book> createBook(String isbn) {
+        Book book = bookIntegrationService.getBookByIsbn(isbn);
         if(book == null) return ResponseEntity.notFound().build();
 
         bookRepository.save(book);
         return ResponseEntity.ok(book);
     }
-    public Book fetchBook(String title, String author){
-        return bookIntegrationService.getBook(title, author).orElse(null);
+    public List<Book> searchBooks(String title, String author){
+        return bookIntegrationService.searchBooks(title, author);
     }
 
     public List<Book> findAll() {

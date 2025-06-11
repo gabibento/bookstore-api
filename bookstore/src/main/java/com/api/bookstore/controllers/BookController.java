@@ -15,8 +15,13 @@ public class BookController {
     BookService bookService;
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestParam String title, @RequestParam String author){
-        return bookService.createBook(title, author);
+    public ResponseEntity<Book> createBook(@RequestParam String isbn){
+        return bookService.createBook(isbn);
+    }
+
+    @GetMapping("/search")
+    public List<Book> searchBooks(@RequestParam String title, @RequestParam String author){
+        return bookService.searchBooks(title, author);
     }
     @GetMapping
     public List<Book> findAll(){
